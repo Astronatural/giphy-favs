@@ -31,6 +31,8 @@ if (process.env.DATABASE_URL) {
   config = {
     host: 'localhost', // Server hosting the postgres database
     port: 5432, // env var: PGPORT
+    user: process.env.DB_USERNAME,     
+    password: process.env.DB_PASSWORD,    
     database: 'giphy_search_favorites', // change this line if you want to use a different database
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
