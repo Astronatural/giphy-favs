@@ -17,22 +17,30 @@ sagaMiddleware.run(watcherSaga);
 
 // watcher sagas will watch for actions. If they match, they fire off other sagas.
 function* watcherSaga() {
-    yield takeEvery('GET_GIFS', getGifs);
+    yield takeEvery('SEARCH_GIFS', searchGifs);
 }
 
-function* getGifs(action) {
+function* searchGifs(action) {
     try {
-        yield axios.post('/api/element', action.payload);
-        yield put({ type: 'FETCH_ELEMENTS' });
+        yield axios.post('/api/category', action.payload).then((response) => {
+        yield put({ type: 'GET_SEARCH' , payload: response});
+    });
     } catch (error) {
         console.log('error posting an element', error);
     }    
 }
 
+const getSearch = (state = {}, action) => {
+    if (action.type === 'GET_SEARCH') {
+        return action.payload;
+    }
+    return state;
+};
+
 const storeInstance = createStore(
     combineReducers(
         {
-            count,
+            getSearch,
         }
     ),
     // Tell redux that we want to use our new logger
