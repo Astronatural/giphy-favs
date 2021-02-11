@@ -4,16 +4,17 @@ import { useDispatch } from 'react-redux';
 
 function SearchForm () {
     
-    const [searchQ, setSearchQ] = useState(''); 
+    const [searchTerm, setSearchQ] = useState(''); 
     const dispatch = useDispatch();
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(`searching...`, { searchQ });
+        console.log(`searching...`, { searchTerm: searchTerm });
         dispatch({
             type: 'POST_SEARCH',
-            payload: { searchQ }
+            payload: { searchTerm: searchTerm }
         });
+        
     };
 
 return (
@@ -21,7 +22,7 @@ return (
         <input
             required
             placeholder="what type of gif do you want to see?"
-            value={searchQ}
+            value={searchTerm}
             onChange={(event) => setSearchQ(event.target.value)}
         />
         <button type="submit">
