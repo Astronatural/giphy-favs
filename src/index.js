@@ -1,34 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
-import logger from 'redux-logger';
 import { Provider } from 'react-redux';
-
+import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-
-// bring in takeEvery and put (needed by our root saga and regular sagas)
 import { takeEvery, put } from 'redux-saga/effects';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
-// This makes a middleware for us to use.
+function* searchGif(action) {
+    try {
+        // action.payload: { searchQ }
+        yield axios.post('/api/category', action.payload).then((response) => {
+        yield put({ type: 'FETCH_GIFS' , payload: response});
+            });
+    } catch (error) {
+        console.log(`Error fetching books`, error);
+    }
+}
+
+// Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-sagaMiddleware.run(watcherSaga);
-
-// watcher sagas will watch for actions. If they match, they fire off other sagas.
-function* watcherSaga() {
-    yield takeEvery('SEARCH_GIFS', searchGifs);
+function* rootSaga() {
+    yield takeEvery('POST_SEARCH', searchGif);
 }
 
-function* searchGifs(action) {
-    try {
-        yield axios.post('/api/category', action.payload).then((response) => {
-        yield put({ type: 'GET_SEARCH' , payload: response});
-    });
-    } catch (error) {
-        console.log('error posting an element', error);
-    }    
-}
+// Pass rootSaga into our sagaMiddleware
+sagaMiddleware.run(rootSaga);
 
 const getSearch = (state = {}, action) => {
     if (action.type === 'GET_SEARCH') {
