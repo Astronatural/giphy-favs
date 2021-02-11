@@ -12,9 +12,8 @@ import { useDispatch } from 'react-redux';
 function* searchGif(action) {
     try {
         // action.payload: { searchQ }
-        yield axios.post('/api/search', action.payload).then((response) => {
-        put({ type: 'FETCH_GIFS' , payload: response});
-            });
+        const searchResponse = yield axios.post('/api/search', action.payload);
+        yield put({ type: 'FETCH_GIFS', payload: searchResponse});
     } catch (error) {
         console.log(`Error fetching books`, error);
     }
@@ -28,9 +27,9 @@ function* rootSaga() {
 }
 
 
-const getSearch = (state = {}, action) => {
+const getSearch = (state = [], action) => {
     if (action.type === 'FETCH_GIFS') {
-        return action.payload;
+        return action.payload.data;
     }
     return state;
 };
