@@ -11,8 +11,9 @@ import { useDispatch } from 'react-redux';
 function* searchGif(action) {
     try {
         // action.payload: { searchQ }
-        yield axios.post('/books', action.payload);
-        yield put({ type: 'FETCH_GIFS' });
+        yield axios.post('/api/category', action.payload).then((response) => {
+        yield put({ type: 'FETCH_GIFS' , payload: response});
+            });
     } catch (error) {
         console.log(`Error fetching books`, error);
     }
@@ -28,7 +29,21 @@ function* rootSaga() {
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(<Provider>
-    <App />
-  </Provider> 
-    , document.getElementById('root'));
+const getSearch = (state = {}, action) => {
+    if (action.type === 'GET_SEARCH') {
+        return action.payload;
+    }
+    return state;
+};
+
+const storeInstance = createStore(
+    combineReducers(
+        {
+            getSearch,
+        }
+    ),
+    // Tell redux that we want to use our new logger
+    applyMiddleware(sagaMiddleware, logger),
+);
+
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
