@@ -1,10 +1,22 @@
 
+import { useDispatch, useSelector } from 'react-redux';
 
 
-function GifDisplayItem({gif}) {
+
+
+function GifDisplayItem({ gif, gifId}) {
+
+    let dispatch = useDispatch();
+    const searchedGifs = useSelector(store => store.getSearch);
+
 
     const favoriteGif = () => {
-        console.log('Favoriting Gif..');
+        const newFav = gif //searchedGifs.filter((gif) => gif.id === gifId);
+        console.log(`Favoriting Gif with id of`, gif.id);
+        dispatch ({
+            type: 'SET_FAVS',
+            payload: newFav
+        })         
     }
 
     return (

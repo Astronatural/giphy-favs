@@ -9,7 +9,7 @@ function GifDisplay() {
     return (
         <div>
             {searchedGifs.map(gif =>
-                (<GifDisplayItem key={gif.id} gif={gif}/>)
+                (<GifDisplayItem key={gif.id} gif={gif} gifId={gif.id}/>)
             )}
         </div>
     )
