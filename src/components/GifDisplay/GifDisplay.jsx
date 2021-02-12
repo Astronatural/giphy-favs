@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import GifDisplayItem from './GifDisplayItem';
+import SearchForm from '../SearchForm/SearchForm';
 
 
 function GifDisplay() {
@@ -8,6 +9,7 @@ function GifDisplay() {
 
     return (
         <div>
+            <SearchForm />
             {searchedGifs.map(gif =>
                 (<GifDisplayItem key={gif.id} gif={gif} gifId={gif.id}/>)
             )}
