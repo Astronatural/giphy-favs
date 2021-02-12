@@ -36,7 +36,6 @@ const getSearch = (state = [], action) => {
 };
 
 const favSearch = (state = [], action) => {
-    console.log(action.payload);
    if (action.type === 'SET_FAVS') {
         return action.payload;
     }
