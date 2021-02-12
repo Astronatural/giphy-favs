@@ -6,7 +6,6 @@ function SearchForm () {
     
     const [searchTerm, setSearchQ] = useState(''); 
     const dispatch = useDispatch();
-
     const handleSubmit = event => {
         event.preventDefault();
         console.log(`searching...`, { searchTerm: searchTerm });

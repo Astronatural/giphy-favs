@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 
+
 function FavDisplayItem({ gif }) {
 
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function FavDisplayItem({ gif }) {
     }
     return (
         <div>
-            <img src={gif.images.downsized_medium.url} />
+            <img src={gif.url} />
             <br />
             <form name="radioGroup" >
                 <p>Select a tag to categorize your favorite gifs </p>
