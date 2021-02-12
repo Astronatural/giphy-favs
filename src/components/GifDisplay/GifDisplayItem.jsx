@@ -17,10 +17,17 @@ function GifDisplayItem({ gif, gifId}) {
         axios.post(`/api/favorite`, { gif: gif.images.downsized_medium.url, title: gif.title })
             .then((response) => {
                 console.log(response);
-                dispatch({
-                    type: 'SET_FAVS',
-                    payload: response
-                })    
+                axios.get(`/api/favorite`)
+                    .then((response) => {
+                        console.log(response);
+                        dispatch({
+                            type: 'SET_FAVS',
+                            payload: response
+                        })
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });   
             })
             .catch(function (error) {
                 console.log(error);
