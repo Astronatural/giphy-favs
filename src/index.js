@@ -43,9 +43,6 @@ const favSearch = (state = [], action) => {
     return state;
 };
 
-
-
-
 const storeInstance = createStore(
     combineReducers(
         {
