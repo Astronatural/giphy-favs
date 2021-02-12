@@ -28,6 +28,9 @@ function Favorites() {
     const favGifs = useSelector(store => store.favSearch);
     console.log(favGifs);
 
+
+    
+
     return (
         <div>
             {favGifs.data.map(gif =>
