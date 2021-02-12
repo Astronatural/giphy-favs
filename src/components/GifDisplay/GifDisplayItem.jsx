@@ -11,12 +11,19 @@ function GifDisplayItem({ gif, gifId}) {
 
 
     const favoriteGif = () => {
-        const newFav = gif //searchedGifs.filter((gif) => gif.id === gifId);
+        //const newFav = gif //searchedGifs.filter((gif) => gif.id === gifId);
         console.log(`Favoriting Gif with id of`, gif.id);
-        dispatch ({
-            type: 'SET_FAVS',
-            payload: newFav
-        })         
+        axios.post(`/api/favorite`, { gif: gif.images.downsized_medium.url, title: gif.title })
+            .then((response) => {
+                console.log(response);
+                dispatch({
+                    type: 'SET_FAVS',
+                    payload: response
+                })    
+            })
+            .catch(function (error) {
+                console.log(error);
+            });      
     }
 
     return (
