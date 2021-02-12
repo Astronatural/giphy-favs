@@ -34,10 +34,23 @@ const getSearch = (state = [], action) => {
     return state;
 };
 
+const favSearch = (state = [], action) => {
+    console.log(action.payload);
+    
+    if (action.type === 'SET_FAVS') {
+        return action.payload;
+    }
+    return state;
+};
+
+
+
+
 const storeInstance = createStore(
     combineReducers(
         {
             getSearch,
+            favSearch
         }
     ),
     // Tell redux that we want to use our new logger
