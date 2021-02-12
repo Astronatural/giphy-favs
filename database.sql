@@ -18,4 +18,4 @@ CREATE TABLE "category" (
 
 -- Default categories. You may change them :)
 INSERT INTO "category" ("name")
-VALUES ('funny'), ('cool'), ('wow'), ('neat'), ('haha');
+VALUES ('funny'), ('cool'), ('wow'), ('neat'), ('omg');

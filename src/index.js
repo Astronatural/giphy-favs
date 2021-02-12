@@ -9,6 +9,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
+
 function* searchGif(action) {
     try {
         // action.payload: { searchQ }
@@ -35,8 +36,7 @@ const getSearch = (state = [], action) => {
 };
 
 const favSearch = (state = [], action) => {
-    
-    if (action.type === 'SET_FAVS') {
+   if (action.type === 'SET_FAVS') {
         return action.payload;
     }
     return state;
