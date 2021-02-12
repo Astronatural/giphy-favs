@@ -8,7 +8,6 @@ CREATE TABLE "favorites" (
     "title" VARCHAR (100) NOT NULL,
     "url" VARCHAR (500) NOT NULL,
     "category_id" SERIAL,
-    FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
 -- Category table
