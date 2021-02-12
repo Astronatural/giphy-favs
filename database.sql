@@ -5,7 +5,8 @@ CREATE DATABASE "giphy_search_favorites";
 
 CREATE TABLE "favorites" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (100) NOT NULL,
+    "title" VARCHAR (100) NOT NULL,
+    "url" VARCHAR (500) NOT NULL,
     "category_id" SERIAL,
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
