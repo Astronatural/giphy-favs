@@ -8,6 +8,7 @@ import axios from 'axios';
 function Favorites() {
 
     const getFavs = () => {
+        console.log('Sending GET request..');
     axios.get(`/api/favorite`)
         .then((response) => {
             console.log(response);
@@ -15,6 +16,16 @@ function Favorites() {
                 type: 'SET_FAVS',
                 payload: response
             })
+            const favGifs = useSelector(store => store.favSearch);
+            console.log(favGifs);
+
+            return (
+                <div>
+                    {favGifs.data.map(gif =>
+                        (<FavDisplayItem key={gif.id} gif={gif} />)
+                    )}
+                </div>
+            )
         })
         .catch(function (error) {
             console.log(error);
@@ -23,18 +34,9 @@ function Favorites() {
 
     useEffect(() => {
         getFavs;
-    });
+    }, []);
 
-    const favGifs = useSelector(store => store.favSearch);
-    console.log(favGifs);
-
-    return (
-        <div>
-            {favGifs.data.map(gif =>
-                (<FavDisplayItem key={gif.id} gif={gif} />)
-            )}
-        </div>
-    )
+    
 
 }
 
